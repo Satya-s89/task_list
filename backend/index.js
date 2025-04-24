@@ -42,4 +42,18 @@ app.get('/tasks', async (req, res) => {
 
 
 // Write an endpoint to create a new task.
+app.post('/task-form',async (req,res) => {
+    const {title,priority,dueTime,status} = req.body;
+    if(!title || !priority || !dueTime || !status){
+        res.status(400).send("All Fields Required");
+    }
+    try {
+        const data = await { title,priority,dueTime,status };
+        Task.save();
+        res.send(200).send("Task successfully established");
+    } catch (error) {
+        res.status(500).send("Internal server error");
+    }
+    
+})
 
